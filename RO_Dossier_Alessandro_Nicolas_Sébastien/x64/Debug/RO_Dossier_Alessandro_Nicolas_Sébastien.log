@@ -1,0 +1,2 @@
+﻿  Main.c
+f:\aless\documents\github\ro_dossier_alessandro_nicolas_sebastien\ro_dossier_alessandro_nicolas_sébastien\main.c(96): fatal error C1010: fin de fichier inattendue lors de la recherche d'un en-tête précompilé. N'auriez-vous pas oublié d'ajouter '#include "stdafx.h"' à votre source ?
