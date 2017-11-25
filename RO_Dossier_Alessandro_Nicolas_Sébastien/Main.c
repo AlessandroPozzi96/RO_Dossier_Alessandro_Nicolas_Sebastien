@@ -9,7 +9,7 @@ void main(void)
 	int tabNormale[SMAX];
 	ClientNormale tabFileNormale[NBCLIENTSNORMALE]; //File en théorie illimitée...
 	int tabCout[SMAX];
-	int s = 3;
+	int s;
 	s = SMIN;
 
 	while (s <= SMAX)
@@ -22,11 +22,14 @@ void main(void)
 		while (t <= SMAX)
 		{
 			nbArriv = GénérerNbArriv();
-			placerClientFile(nbArriv, fileExpress, fileNormal, &DS, tabNormale, tabFileNormale, tabExpress, tabFileExpress);
+
+			placerClientFile(nbArriv, fileExpress, fileNormal, &DS, tabNormale, tabFileNormale, tabExpress, tabFileExpress, nbPrioritairesAbsolu, &expressNormaleTot);
+			
 			iStation1 = 0;
 			trtStationExpress(iStation1, tabExpress, &fileExpress, tabFileExpress, &nbMinInoccupation, &minExpress);
+			
 			iStation2 = 0;
-			trtStationNormale(iStation2, tabNormale, &fileNormal, tabFileNormale, &nbPrioritairesAbsolu, &minNormal);
+			trtStationNormale(iStation2, tabNormale, &fileNormal, tabFileNormale, &nbPrioritairesAbsolu, &minNormal, &s);
 			trtPrioritaire(iStation2, tabNormale, tabFileNormale, &nbPrioritairesAbsolu);
 
 			nbPersCumExpress += fileExpress;
@@ -66,10 +69,10 @@ void initTableaux(int *tabNormale, int *tabExpress, ClientNormale *tabFileNormal
 	}
 }
 
-void placerClientFile(int nbArrivé, int *fileExpress, int *fileNormale, int *DS, int *tabNormale, ClientNormale *tabFileNormale, int *tabExpress, int *tabFileExpress)
+void placerClientFile(int nbArrivé, int *fileExpress, int *fileNormale, int *DS, int *tabNormale, ClientNormale *tabFileNormale, int *tabExpress, int *tabFileExpress, int nbPrioritairesAbsolu, int *expressNormaleTot)
 {
 	int i = 0;
-
+	int i_File;
 	while (i < nbArrivé)
 	{
 		*DS = GénérerDS();
@@ -77,10 +80,30 @@ void placerClientFile(int nbArrivé, int *fileExpress, int *fileNormale, int *DS,
 		{
 			if (*fileExpress < 8)
 			{
+				tabExpress[*fileExpress] = *DS;
+				*fileExpress++;
+			}
+			else
+			{
+				i_File = nbPrioritairesAbsolu;
+				while (i_File < *fileNormale && tabFileNormale[i_File].DS <= 3)
+				{
+					i_File++;
+				}
 
+				reculerFileNormale(tabFileNormale, i_File, fileNormale);
+				tabFileNormale[i_File].DS = *DS;
+				*fileNormale++;
+				*expressNormaleTot++;
 			}
 		}
+		else
+		{
+			tabFileNormale[*fileNormale].DS = *DS;
+			*fileNormale++;
+		}
 	}
+	i++;
 }
 
 int rand_a_b(int a, int b) 
@@ -131,5 +154,16 @@ void avancerFile(int *tabFile, int file, int i_File)
 	while (i <= file)
 	{
 		tabFile[i] = tabFile[i + 1];
+	}
+}
+
+void trtStationNormale(int iStation, int *tabStation, int *fileNormale, ClientNormale *tabFileNormale, int *nbPrioritairesAbsolu, int *minNormale, int *s)
+{
+	while (iStation < *s)
+	{
+		if (tabStation[iStation] == 0)
+		{
+			
+		}
 	}
 }
