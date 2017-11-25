@@ -42,4 +42,6 @@ void trtStationNormale(int iStation, int *tabStation, int *fileNormale, ClientNo
 void trtPrioritaire(int iStation, int *tabStation, ClientNormale *tabFileNormale, int *nbPrioritairesAbsolu);
 void calcul(int nbPersCumNormale, int nbPersCumExpress, int nbPriorCumAbsolu, int minExpress, int minNormale, int minInoccupation, int expressNormaleTot, int *tabCout);
 int rechercheMin(int *tabCout);
-
+void reculerFileNormale(ClientNormale *tabFile, int file, int i_File);
+void reculerFileExpress(int *tabFile, int file, int i_File);
+void avancerFile(int *tabFile, int file, int i_File);

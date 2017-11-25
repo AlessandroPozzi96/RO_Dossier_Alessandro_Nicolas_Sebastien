@@ -70,6 +70,17 @@ void placerClientFile(int nbArrivé, int *fileExpress, int *fileNormale, int *DS,
 {
 	int i = 0;
 
+	while (i < nbArrivé)
+	{
+		*DS = GénérerDS();
+		if (*DS <= 3)
+		{
+			if (*fileExpress < 8)
+			{
+
+			}
+		}
+	}
 }
 
 int rand_a_b(int a, int b) 
@@ -92,4 +103,33 @@ int GénérerNbArriv(void)
 	} while (p > l);
 
 	return k - 1;
+}
+
+void reculerFileNormale(ClientNormale *tabFile, int file, int i_File)
+{
+	int i = file;
+	while (i > i_File)
+	{
+		tabFile[i].DS = tabFile[i-1].DS;
+		i++;
+	}
+}
+
+void reculerFileExpress(int *tabFile, int file, int i_File)
+{
+	int i = file;
+	while (i > i_File)
+	{
+		tabFile[i] = tabFile[i - 1];
+		i++;
+	}
+}
+
+void avancerFile(int *tabFile, int file, int i_File)
+{
+	int i = i_File;
+	while (i <= file)
+	{
+		tabFile[i] = tabFile[i + 1];
+	}
 }
